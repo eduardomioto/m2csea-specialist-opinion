@@ -13,22 +13,22 @@ spring:
  jmx:
   enabled: false
 ---
-spring:
+spring: 
  profiles: dev
  cloud:
   consul:
-   host: 127.0.0.1
+   host: consul
    port: 8500
    discovery:
     healthCheckInterval: 15s
  jmx:
   enabled: false
 ---
-spring:
+spring: 
  profiles: hml
  cloud:
   consul:
-   host: 127.0.0.1
+   host: consul
    port: 8500
    discovery:
     healthCheckInterval: 15s

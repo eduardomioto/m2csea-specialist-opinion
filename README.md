@@ -1,4 +1,4 @@
-MC2PD - Microservice Communication Critical Path Discovery - Specialist Opinion Module
+M2CSEA - Specialist Opinion Module
 --------------
 [![Build Status](https://travis-ci.org/eduardomioto/mc2pd-specialist-opinion.svg?branch=master)](https://travis-ci.org/eduardomioto/mc2pd-specialist-opinion)
 

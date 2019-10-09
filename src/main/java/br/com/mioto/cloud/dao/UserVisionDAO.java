@@ -1,9 +1,9 @@
 package br.com.mioto.cloud.dao;
 
-import br.com.mioto.cloud.vo.UserVision;
-
 import java.sql.SQLException;
 import java.util.List;
+
+import br.com.mioto.cloud.vo.UserVision;
 
 public interface UserVisionDAO {
 

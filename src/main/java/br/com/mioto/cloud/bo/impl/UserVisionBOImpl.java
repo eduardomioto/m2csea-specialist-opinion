@@ -22,10 +22,15 @@ public class UserVisionBOImpl implements UserVisionBO {
     }
 
     @Override
-    public void storeUserVision(List<UserVision> userVisionList) throws SQLException {
+    public void storeUserVisions(List<UserVision> userVisionList) throws SQLException {
         for (final UserVision userVision : userVisionList) {
             userVisionDAO.storeUserVision(userVision);
         }
+    }
+
+    @Override
+    public void storeUserVision(UserVision userVision) throws SQLException {
+        userVisionDAO.storeUserVision(userVision);
     }
 
 }

@@ -50,11 +50,25 @@ public class UserVisionController {
 
     @RequestMapping(value = "/microservices/vision/user/", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity  postUserVision(@RequestBody List<UserVision> userVision) {
+    public ResponseEntity  postUserVision(@RequestBody UserVision userVision) {
         log.info("UserVisionController >> postUserVision");
         log.info("userVision: {}", userVision);
         try {
             userVisionBO.storeUserVision(userVision);
+        } catch (final SQLException e) {
+            log.error("Error: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED.value()).build();
+    }
+
+    @RequestMapping(value = "/microservices/vision/user/full", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity  postUserVision(@RequestBody List<UserVision> userVision) {
+        log.info("UserVisionController >> postUserVision");
+        log.info("userVision: {}", userVision);
+        try {
+            userVisionBO.storeUserVisions(userVision);
         } catch (final SQLException e) {
             log.error("Error: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).build();

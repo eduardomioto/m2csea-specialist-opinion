@@ -9,5 +9,7 @@ public interface UserVisionBO {
 
     public List<UserVision> getAllUserVision() throws SQLException;
 
-    public void storeUserVision(List<UserVision> userVision) throws SQLException;
+    public void storeUserVisions(List<UserVision> userVision) throws SQLException;
+
+    public void storeUserVision(UserVision userVision) throws SQLException;
 }

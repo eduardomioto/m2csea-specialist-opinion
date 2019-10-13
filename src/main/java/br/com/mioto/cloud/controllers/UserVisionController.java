@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.mioto.cloud.bo.UserVisionBO;
+import br.com.mioto.cloud.enums.EUserVision;
 import br.com.mioto.cloud.vo.UserVision;
 
 @CrossOrigin
@@ -36,16 +37,57 @@ public class UserVisionController {
     public ResponseEntity<List<UserVision>> getUserVision() {
         log.info("UserVisionController >> getUserVision");
         List<UserVision> listVisions = new ArrayList<>();
-
-
         try {
             listVisions = userVisionBO.getAllUserVision();
+
+            final List<Integer> listAllUserVision = getAllUserVisionIds();
+
+            if (listVisions.size() < 15) {
+
+                final List<Integer> listUserVision = new ArrayList<Integer>();
+                for (final UserVision userVision : listVisions) {
+                    listUserVision.add( userVision.getVisionComparisonId());
+                }
+
+                listAllUserVision.removeAll(listUserVision);
+
+                for (final Integer missingValues : listUserVision) {
+
+                    final EUserVision eUserVision = EUserVision.getEnum(missingValues);
+                    final UserVision missingUserVision = new UserVision();
+                    missingUserVision.setVisionComparisonId(missingValues);
+                    missingUserVision.setVisionA(eUserVision.getValorA());
+                    missingUserVision.setVisionB(eUserVision.getValorB());
+                    listVisions.add(missingUserVision);
+                }
+            }
+
 
         } catch (final Exception e) {
             log.error("Error: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).build();
         }
         return new ResponseEntity<List<UserVision>>(listVisions, HttpStatus.OK);
+    }
+
+    private List<Integer> getAllUserVisionIds() {
+        final List<Integer> listAllUserVision = new ArrayList<Integer>();
+        listAllUserVision.add(1);
+        listAllUserVision.add(2);
+        listAllUserVision.add(3);
+        listAllUserVision.add(4);
+        listAllUserVision.add(5);
+        listAllUserVision.add(6);
+        listAllUserVision.add(7);
+        listAllUserVision.add(8);
+        listAllUserVision.add(9);
+        listAllUserVision.add(10);
+        listAllUserVision.add(11);
+        listAllUserVision.add(12);
+        listAllUserVision.add(13);
+        listAllUserVision.add(14);
+        listAllUserVision.add(15);
+        return listAllUserVision;
     }
 
     @RequestMapping(value = "/microservices/vision/user/", method = RequestMethod.POST)

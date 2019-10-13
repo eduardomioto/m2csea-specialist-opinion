@@ -1,55 +1,68 @@
 package br.com.mioto.cloud.dao.impl;
 
-import br.com.mioto.cloud.dao.UserVisionDAO;
-import br.com.mioto.cloud.vo.UserVision;
-import org.springframework.stereotype.Component;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import br.com.mioto.cloud.dao.UserVisionDAO;
+import br.com.mioto.cloud.vo.UserVision;
 
 @Component
 public class UserVisionDAOImpl extends BaseDAOImpl implements UserVisionDAO  {
 
-   public List<UserVision> getAllUserVision() throws SQLException {
-       Connection conn =  getConnection();
-       String query = "SELECT microservice, rating FROM user_vision order by microservice";
-       Statement st = conn.createStatement();
-       ResultSet rs = st.executeQuery(query);
+   @Override
+public List<UserVision> getAllUserVision() throws SQLException {
+       final Connection conn =  getConnection();
+       final String query = "SELECT " +
+               "    uv.vision_comparison_id, " +
+               "    uv.value as rating, " +
+               "    vi.vision_name as visionA , " +
+               "    vie.vision_name as visionB " +
+               "from \r\n" +
+               "    user_visions as uv, " +
+               "    vision_comparison as comp, " +
+               "    visions as vi, " +
+               "    visions as vie " +
+               "where \r\n" +
+               "    comp.main_vision = vi.vision_id and " +
+               "    comp.compared_vision = vie.vision_id and " +
+               "    comp.id = uv.vision_comparison_id";
+       final Statement st = conn.createStatement();
+       final ResultSet rs = st.executeQuery(query);
 
-       List<UserVision> listUserVision = new ArrayList<>();
+
+       final List<UserVision> listUserVision = new ArrayList<>();
        while (rs.next())
        {
-           UserVision userVision = new UserVision();
-           userVision.setMicroservice(rs.getString("microservice"));
-           userVision.setRating(rs.getInt("rating"));
+           final UserVision userVision = new UserVision();
+           userVision.setVisionA(rs.getString("visionA"));
+           userVision.setVisionB(rs.getString("visionB"));
+           userVision.setVisionComparisonId(rs.getInt("vision_comparison_id"));
+           userVision.setRating(rs.getDouble("rating"));
            listUserVision.add(userVision);
        }
        st.close();
        return listUserVision;
    }
 
+    @Override
     public void storeUserVision(UserVision userVision) throws SQLException {
-        Connection conn =  getConnection();
-        String query = "INSERT INTO user_vision (microservice, rating) VALUES(?, ?) ON DUPLICATE KEY UPDATE rating=?, microservice=?";
+        final Connection conn =  getConnection();
+        final String query = "INSERT INTO user_visions (user_id, vision_comparison_id, value) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE vision_comparison_id=?, value=?";
 
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setString (1, userVision.getMicroservice());
-        preparedStmt.setInt (2, userVision.getRating());
-        preparedStmt.setInt (3, userVision.getRating());
-        preparedStmt.setString (4, userVision.getMicroservice());
+        final PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt (1, userVision.getUserId());
+        preparedStmt.setInt (2, userVision.getVisionComparisonId());
+        preparedStmt.setDouble (3, userVision.getRating());
+        preparedStmt.setInt (4, userVision.getVisionComparisonId());
+        preparedStmt.setDouble (5, userVision.getRating());
         preparedStmt.execute();
-        conn.close();
-    }
-
-    public void updateUserVision(UserVision userVision) throws SQLException {
-        Connection conn =  getConnection();
-        String query = " update user_vision set rating = ? where microservice =  ?";
-
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setInt   (1, userVision.getRating());
-        preparedStmt.setString(2, userVision.getMicroservice());
-        preparedStmt.executeUpdate();
         conn.close();
     }
 }

@@ -16,15 +16,16 @@ public class UserVisionBOImpl implements UserVisionBO {
     @Autowired
     private UserVisionDAO userVisionDAO;
 
+    @Override
     public List<UserVision> getAllUserVision() throws SQLException {
         return  userVisionDAO.getAllUserVision();
     }
 
-    public void storeUserVision(UserVision userVision) throws SQLException {
-        userVisionDAO.storeUserVision(userVision);
+    @Override
+    public void storeUserVision(List<UserVision> userVisionList) throws SQLException {
+        for (final UserVision userVision : userVisionList) {
+            userVisionDAO.storeUserVision(userVision);
+        }
     }
 
-    public void updateUserVision(UserVision userVision) throws SQLException {
-        userVisionDAO.storeUserVision(userVision);
-    }
 }

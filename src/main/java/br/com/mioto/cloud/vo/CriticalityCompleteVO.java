@@ -1,6 +1,6 @@
 package br.com.mioto.cloud.vo;
 
-import br.com.mioto.cloud.bo.impl.AHP;
+import br.com.mioto.cloud.external.AHP;
 
 public class CriticalityCompleteVO {
 

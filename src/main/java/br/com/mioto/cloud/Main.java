@@ -1,6 +1,6 @@
 package br.com.mioto.cloud;
 
-import br.com.mioto.cloud.bo.impl.AHP;
+import br.com.mioto.cloud.external.AHP;
 
 public class Main {
 

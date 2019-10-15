@@ -4,7 +4,7 @@
 * some children nodes. Example is taken from http://www.thecourse.us/5/library/AHP/AHP_Tutorial.pdf
 *
 */
-package br.com.mioto.cloud.bo.impl;
+package br.com.mioto.cloud.external;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;

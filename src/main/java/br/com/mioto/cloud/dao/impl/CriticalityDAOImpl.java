@@ -2,7 +2,10 @@ package br.com.mioto.cloud.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -16,15 +19,47 @@ public class CriticalityDAOImpl extends BaseDAOImpl implements CriticalityDAO  {
     @Override
     public List<CriticalityVO> getMostCriticalMicroservices() throws SQLException {
         final Connection conn =  getConnection();
-        final String query = "select * from criticality_factor";
+        final String query = "select * from criticality_factor ";
 
-        // (microservice, factor, value, vision, dt_transaction) VALUES(?, ?, ?, ?, NOW())
+        final Statement st = conn.createStatement();
+        final ResultSet rs = st.executeQuery(query);
+
+        final List<CriticalityVO> listUserVision = new ArrayList<CriticalityVO>();
 
         final PreparedStatement preparedStmt = conn.prepareStatement(query);
-//        preparedStmt.setString (1, vo.getMicroservice());
-//        preparedStmt.setInt (2, vo.getCriticalityFactor());
-//        preparedStmt.setString (3, vo.getValue());
-//        preparedStmt.setString (4, vo.getVision());
+
+        while (rs.next())
+        {
+            final CriticalityVO vo = new CriticalityVO();
+            vo.setCriticalityFactor(rs.getInt("factor"));
+            vo.setMicroservice(rs.getString("microservice"));
+            vo.setValue(rs.getString("value"));
+            vo.setVision(rs.getString("vision"));
+
+            switch (rs.getString("vision")) {
+                case "computational-resource-usage":
+                    vo.setVisionId(5);
+                    break;
+                case "response-time":
+                    vo.setVisionId(2);
+                    break;
+                case "availability":
+                    vo.setVisionId(6);
+                    break;
+                case "tech-debit":
+                    vo.setVisionId(4);
+                    break;
+                case "microservices-interdependecies":
+                    vo.setVisionId(1);
+                    break;
+
+                default:
+                    break;
+            }
+
+            listUserVision.add(vo);
+        }
+        st.close();
 
         preparedStmt.execute();
         conn.close();

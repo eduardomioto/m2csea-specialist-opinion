@@ -4,6 +4,7 @@ public class CriticalityVO {
 
     private String microservice;
     private String vision;
+    private Integer visionId;
     private Integer criticalityFactor;
     private String value;
 
@@ -30,6 +31,17 @@ public class CriticalityVO {
     }
     public void setValue(String value) {
         this.value = value;
+    }
+    public Integer getVisionId() {
+        return visionId;
+    }
+    public void setVisionId(Integer visionId) {
+        this.visionId = visionId;
+    }
+    @Override
+    public String toString() {
+        return "CriticalityVO [microservice=" + microservice + ", vision=" + vision + ", visionId=" + visionId + ", criticalityFactor=" + criticalityFactor
+                + ", value=" + value + "]";
     }
 
 

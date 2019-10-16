@@ -20,6 +20,7 @@ public class Main {
 
         ahp.setPairwiseComparisonArray(compArray);
 
+
         for (int i = 0; i < ahp.getNrOfPairwiseComparisons(); i++) {
             System.out.print("Importance of " + labels[ahp.getIndicesForPairwiseComparison(i)[0]] + " compared to ");
             System.out.print(labels[ahp.getIndicesForPairwiseComparison(i)[1]] + "= ");
@@ -32,8 +33,9 @@ public class Main {
         System.out.println("Consistency Ratio: " + ahp.getConsistencyRatio() + "%");
         System.out.println();
         System.out.println("Weights: ");
+
         for (int k=0; k<ahp.getWeights().length; k++) {
-            System.out.println(labels[k] + ": " + (ahp.getWeights()[k] * 100));
+            System.out.println("W: " + labels[k] + ": " + (ahp.getWeights()[k]));
         }
     }
 

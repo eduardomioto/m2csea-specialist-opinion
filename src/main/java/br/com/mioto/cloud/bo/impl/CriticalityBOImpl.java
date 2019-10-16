@@ -2,6 +2,7 @@ package br.com.mioto.cloud.bo.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,6 @@ import br.com.mioto.cloud.bo.AhpBO;
 import br.com.mioto.cloud.bo.CriticalityBO;
 import br.com.mioto.cloud.dao.CriticalityDAO;
 import br.com.mioto.cloud.external.AHP;
-import br.com.mioto.cloud.vo.CriticalityCompleteVO;
 import br.com.mioto.cloud.vo.CriticalityVO;
 
 /**
@@ -37,20 +37,24 @@ public class CriticalityBOImpl implements CriticalityBO {
      * @param vo the vo
      * @throws SQLException the SQL exception
      */
-    @Override
-    public List<CriticalityVO> getMostCriticalMicroservices() throws SQLException {
-        return criticalityDAO.getMostCriticalMicroservices();
+    private List<CriticalityVO> getMicroservicesCriticalityFactor() throws SQLException {
+        return criticalityDAO.getMicroservicesCriticalityFactor();
     }
 
-    public List<CriticalityCompleteVO> check() throws SQLException{
+    @Override
+    public List<CriticalityVO> getMostCriticalMicroservices() throws SQLException{
 
         final AHP ahp = AhpBO.calculateAHP();
-        //obter os pesos de cada entrada
+        final Map<Integer, Double> map = ahp.getWeightsMap();
 
-        this.getMostCriticalMicroservices();
+        final List<CriticalityVO> lista = this.getMicroservicesCriticalityFactor();
+        for (final CriticalityVO criticalityVO : lista) {
+            final Double weight = map.get(criticalityVO.getVisionId());
+            final Double criticalityResult = criticalityVO.getCriticalityFactor() * weight;
+            criticalityVO.setCriticalityResult(criticalityResult);
+        }
 
-
-        return null;
+        return lista;
     }
 
 }

@@ -6,8 +6,16 @@ public class CriticalityVO {
     private String vision;
     private Integer visionId;
     private Integer criticalityFactor;
+    private Double criticalityResult;
     private String value;
 
+
+    public Double getCriticalityResult() {
+        return criticalityResult;
+    }
+    public void setCriticalityResult(Double criticalityResult) {
+        this.criticalityResult = criticalityResult;
+    }
     public String getMicroservice() {
         return microservice;
     }

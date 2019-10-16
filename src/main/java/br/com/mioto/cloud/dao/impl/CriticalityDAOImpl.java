@@ -17,9 +17,11 @@ import br.com.mioto.cloud.vo.CriticalityVO;
 public class CriticalityDAOImpl extends BaseDAOImpl implements CriticalityDAO  {
 
     @Override
-    public List<CriticalityVO> getMostCriticalMicroservices() throws SQLException {
-        final Connection conn =  getConnection();
-        final String query = "select * from criticality_factor ";
+    public List<CriticalityVO> getMicroservicesCriticalityFactor() throws SQLException {
+        final Connection conn =  getConnectionMetrics();
+        final String query = "SELECT *, MAX(dt_transaction) " +
+                "FROM `m2csea-metrics`.criticality_factor " +
+                "GROUP BY vision DESC ";
 
         final Statement st = conn.createStatement();
         final ResultSet rs = st.executeQuery(query);
@@ -52,7 +54,9 @@ public class CriticalityDAOImpl extends BaseDAOImpl implements CriticalityDAO  {
                 case "microservices-interdependecies":
                     vo.setVisionId(1);
                     break;
-
+                case "unit-test-coverage":
+                    vo.setVisionId(3);
+                    break;
                 default:
                     break;
             }
@@ -60,13 +64,10 @@ public class CriticalityDAOImpl extends BaseDAOImpl implements CriticalityDAO  {
             listUserVision.add(vo);
         }
         st.close();
-
         preparedStmt.execute();
         conn.close();
 
-        conn.close();
-
-        return null;
+        return listUserVision;
 
     }
 }

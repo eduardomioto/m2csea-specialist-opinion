@@ -6,6 +6,8 @@
 */
 package br.com.mioto.cloud.external;
 
+import java.util.Map;
+
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealVector;
@@ -15,6 +17,34 @@ import org.apache.commons.math3.linear.RealVector;
  * @author chris
  */
 public class AHP {
+
+    private Double eigenValue;
+    private Map<Integer, Double> weightsMap;
+    private Map<String, Double> rankingMap;
+
+    public Map<Integer, Double> getWeightsMap() {
+        return weightsMap;
+    }
+
+    public void setWeightsMap(Map<Integer, Double> weightsMap) {
+        this.weightsMap = weightsMap;
+    }
+
+    public Double getEigenValue() {
+        return eigenValue;
+    }
+
+    public void setEigenValue(Double eigenValue) {
+        this.eigenValue = eigenValue;
+    }
+
+    public Map<String, Double> getRankingMap() {
+        return rankingMap;
+    }
+
+    public void setRankingMap(Map<String, Double> rankingMap) {
+        this.rankingMap = rankingMap;
+    }
 
     /**
      * Random Consistency Index

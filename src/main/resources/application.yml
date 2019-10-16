@@ -14,7 +14,7 @@ management:
     enabled: false
 
 server:
- port: 19092
+ port: 19192
 
 project:
   name: mc2pd-specialist-opinion

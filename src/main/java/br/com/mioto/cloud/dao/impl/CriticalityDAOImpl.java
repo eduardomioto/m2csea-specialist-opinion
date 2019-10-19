@@ -20,10 +20,9 @@ public class CriticalityDAOImpl extends BaseDAOImpl implements CriticalityDAO  {
     public List<CriticalityVO> getMicroservicesCriticalityFactor(String days) throws SQLException {
         final Connection conn =  getConnectionMetrics();
         final String query = "  SELECT avg(cf.factor) as factor, cf.vision, cf.microservice " +
-                "    FROM `m2csea-metrics`.criticality_factor cf " +
-                "    WHERE dt_transaction >= DATE(NOW()) - INTERVAL " + days + "DAY " +
-                "    GROUP BY cf.vision, cf.microservice " +
-                "";
+                "    FROM criticality_factor cf " +
+                "    WHERE dt_transaction >= DATE(NOW()) - INTERVAL " + days + " DAY " +
+                "    GROUP BY cf.vision, cf.microservice ";
 
         final Statement st = conn.createStatement();
         final ResultSet rs = st.executeQuery(query);
@@ -37,7 +36,6 @@ public class CriticalityDAOImpl extends BaseDAOImpl implements CriticalityDAO  {
             final CriticalityVO vo = new CriticalityVO();
             vo.setCriticalityFactor(rs.getInt("factor"));
             vo.setMicroservice(rs.getString("microservice"));
-            vo.setValue(rs.getString("value"));
             vo.setVision(rs.getString("vision"));
 
             switch (rs.getString("vision")) {

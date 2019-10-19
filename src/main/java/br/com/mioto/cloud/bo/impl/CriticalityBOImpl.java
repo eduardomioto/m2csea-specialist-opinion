@@ -37,17 +37,17 @@ public class CriticalityBOImpl implements CriticalityBO {
      * @param vo the vo
      * @throws SQLException the SQL exception
      */
-    private List<CriticalityVO> getMicroservicesCriticalityFactor() throws SQLException {
-        return criticalityDAO.getMicroservicesCriticalityFactor();
+    private List<CriticalityVO> getMicroservicesCriticalityFactor(String days) throws SQLException {
+        return criticalityDAO.getMicroservicesCriticalityFactor(days);
     }
 
     @Override
-    public List<CriticalityVO> getMostCriticalMicroservices() throws SQLException{
+    public List<CriticalityVO> getMostCriticalMicroservices(String days) throws SQLException{
 
         final AHP ahp = AhpBO.calculateAHP();
         final Map<Integer, Double> map = ahp.getWeightsMap();
 
-        final List<CriticalityVO> lista = this.getMicroservicesCriticalityFactor();
+        final List<CriticalityVO> lista = this.getMicroservicesCriticalityFactor(days);
         for (final CriticalityVO criticalityVO : lista) {
             final Double weight = map.get(criticalityVO.getVisionId());
             final Double criticalityResult = criticalityVO.getCriticalityFactor() * weight;

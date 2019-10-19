@@ -17,11 +17,13 @@ import br.com.mioto.cloud.vo.CriticalityVO;
 public class CriticalityDAOImpl extends BaseDAOImpl implements CriticalityDAO  {
 
     @Override
-    public List<CriticalityVO> getMicroservicesCriticalityFactor() throws SQLException {
+    public List<CriticalityVO> getMicroservicesCriticalityFactor(String days) throws SQLException {
         final Connection conn =  getConnectionMetrics();
-        final String query = "SELECT *, MAX(dt_transaction) " +
-                "FROM `m2csea-metrics`.criticality_factor " +
-                "GROUP BY vision DESC ";
+        final String query = "SELECT cf.vision, avg(cf.factor) " +
+                "FROM `m2csea-metrics`.criticality_factor cf " +
+                ("WHERE dt_transaction >= DATE(NOW()) - INTERVAL  "+ days +" DAY ") +
+                "GROUP BY cf.vision DESC " +
+                "";
 
         final Statement st = conn.createStatement();
         final ResultSet rs = st.executeQuery(query);

@@ -42,7 +42,6 @@ public class AHPController {
                 map.put(getLabel(entry.getKey()), entry.getValue());
             }
 
-
             vo.setNrOfPairwiseComparisons( ahp.getNrOfPairwiseComparisons());
             vo.setConsistencyIndex(ahp.getConsistencyIndex());
             vo.setConsistencyRatio(ahp.getConsistencyRatio());

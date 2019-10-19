@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,14 +27,13 @@ public class CriticalityController {
     @Autowired
     private CriticalityBO criticalityBO;
 
-    @RequestMapping(value = "/microservices/criticality/", method = RequestMethod.GET)
+    @RequestMapping(value = "/microservices/criticality/days/{days}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<CriticalityVO>> getMostCriticalMicroservices() {
-        log.info("AHPController >> getMostCriticalMicroservices");
+    public ResponseEntity<List<CriticalityVO>> getMostCriticalMicroservices(@PathVariable("days") String days) {
+        log.info("CriticalityController >> getMostCriticalMicroservices Days: {}", days);
         List<CriticalityVO> listVisions = new ArrayList<>();
         try {
-            listVisions = criticalityBO.getMostCriticalMicroservices();
-
+            listVisions = criticalityBO.getMostCriticalMicroservices(days);
 
         } catch (final Exception e) {
             log.error("Error: ", e);

@@ -7,5 +7,5 @@ import br.com.mioto.cloud.vo.CriticalityVO;
 
 public interface CriticalityBO {
 
-    List<CriticalityVO> getMostCriticalMicroservices() throws SQLException;
+    List<CriticalityVO> getMostCriticalMicroservices(String days) throws SQLException;
 }

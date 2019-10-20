@@ -1,6 +1,7 @@
 package br.com.mioto.cloud.bo.impl;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +54,8 @@ public class CriticalityBOImpl implements CriticalityBO {
             final Double criticalityResult = criticalityVO.getCriticalityFactor() * weight;
             criticalityVO.setCriticalityResult(criticalityResult);
         }
+
+        Collections.sort(lista, Collections.reverseOrder());
 
         return lista;
     }

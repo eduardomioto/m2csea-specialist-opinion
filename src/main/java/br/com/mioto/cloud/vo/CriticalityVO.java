@@ -1,6 +1,6 @@
 package br.com.mioto.cloud.vo;
 
-public class CriticalityVO {
+public class CriticalityVO implements Comparable<CriticalityVO>{
 
     private String microservice;
     private String vision;
@@ -52,6 +52,16 @@ public class CriticalityVO {
                 + ", value=" + value + "]";
     }
 
+    @Override
+    public int compareTo(CriticalityVO o) {
+        if(criticalityResult == o.getCriticalityResult()) {
+            return 0;
+        } else if(criticalityResult > o.getCriticalityResult()) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 
 
 }

@@ -59,22 +59,22 @@ public class AHPController {
         String label = null;
         switch (visionId) {
             case 1:
-                label = "Dependência de outros serviços";
+                label = "Interdependence";
                 break;
             case 2:
-                label = "Tempo de Resposta";
+                label = "Response Time";
                 break;
             case 3:
-                label = "Cobertura de Testes Unitários";
+                label = "Unit Test Coverage";
                 break;
             case 4:
-                label = "Débito Técnico";
+                label = "Tech Debit";
                 break;
             case 5:
-                label = "Consumo de Recursos Computacionais";
+                label = "Resouce Usage";
                 break;
             case 6:
-                label = "Disponibilidade";
+                label = "Availability";
                 break;
             default:
                 break;

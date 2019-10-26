@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final String labels[] = {"Interdependence","Response Time","Unit Test Coverage","Technical Debt","Comp. Resource Usage", "Availability"};
+        final String labels[] = {"Interdendência","Tempo de Resposta","Cobertura de Testes Unitários","Débito Técnico","Consumo de Recursos Computacionais", "Disponibilidade"};
 
         final int nrVx = labels.length;
 
@@ -42,17 +42,10 @@ public class Main {
 
 
     public static String[] getLabels() {
-        final String labels[] = {"Interdependence","Response Time","Unit Test Coverage","Technical Debt","Comp. Resource Usage"};
+        final String labels[] = {"Interdendência","Tempo de Resposta","Cobertura de Testes Unitários","Débito Técnico","Consumo de Recursos Computacionais", "Disponibilidade"};
         return labels;
     }
 
-    //obter os valores de cada uma das caracteristicas para multiplicar por cada um dos pesos obtidos <ou> somente ordenar os microserviços de cada visão em relação aos pesos (abordagem menos correta)
 
-    //Exemplo dos pesos abaixo:
-    //Interdependence: 31.446613898467152
-    //Response Time: 21.253557094972596
-    //Unit Test Coverage: 20.63441958116334
-    //Technical Debt: 11.816404599343866
-    //Comp. Resource Usage: 14.849004826053047
 
 }

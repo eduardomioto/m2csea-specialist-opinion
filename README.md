@@ -1,6 +1,6 @@
 M2CSEA - Specialist Opinion Module
 --------------
-[![Build Status](https://travis-ci.org/eduardomioto/mc2pd-specialist-opinion.svg?branch=master)](https://travis-ci.org/eduardomioto/mc2pd-specialist-opinion)
+[![Build Status](https://travis-ci.org/eduardomioto/m2csea-specialist-opinion.svg?branch=master)](https://travis-ci.org/eduardomioto/m2csea-specialist-opinion)
 
 ##### Introduction
 Technologies Involved 
